@@ -8,15 +8,22 @@
 </head>
 <body>
     <div class="start-screen screen">
-        <hi>"welcome to the human evolution game"</hi>
-        <p>"use your arrow up to jump</p>
-        <button class="start-btn">"start game</button>
+        <hi>Welcome to the human evolution game !!</hi>
+        <p>Use your arrow up to jump</p>
+        <button class="start-btn">Start the Game</button>
     </div>
     <div class = "game-screen screen">
+        <div class ="hud">
         <span class = "life">"life: "</span>
+        <span class = "score">"score: "</span>
+        </div>
     </div>
-    <div class = "end-screen screen">
-        <h1>"GAME OVER!!</h1>
+    <div class="end-screen screen">
+        <div class = "end-content">
+       <h1>GAME OVER!!</h1>
+       <p>Your evolutionary journey has ended.</p>
+       <button class="retry-btn">Try Again</button>
+       </div>
     </div>
    <script src="js/foods.js" defer></script>
    <script src="js/obstacle.js" defer></script>

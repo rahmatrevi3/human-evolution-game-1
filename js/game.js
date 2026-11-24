@@ -20,8 +20,7 @@ class Game {
     this.lives = 10
     this.score = 0
     this.isGameOver = false
-    this.isInvincible = false
-    this.lastHitTime = 0
+    
   }
 
   startGame() {
@@ -29,97 +28,118 @@ class Game {
     this.gameScreen.style.display = "flex"
     this.endScreen.style.display = "none"
 
-    this.lifeContainer.textContent = this.lives
-
-    if (this.scoreContainer) {
-      this.scoreContainer.textContent = this.score
-    }
+    this.lifeContainer.textContent = `Life: ${this.lives}`
+    this.scoreContainer.textContent = `Score: ${this.score}`
+    
 
     this.ground = new Ground()
     this.player = new Player(this.ground)
 
-    // Spawn food every 3 seconds
+    
     this.foodInterval = setInterval(() => {
       this.spawnFood()
     }, 3000)
 
-    // Spawn obstacle every 4 seconds
+    
     this.obstaclesInterval = setInterval(() => {
       this.spawnObstacle()
     }, 4000)
 
-    // Game animation
+    
     this.animationInterval = setInterval(() => {
       this.animate()
     }, 15)
   }
 
-  animate() {
-    if (this.isGameOver) return
 
-    this.player.update()
 
-    // FOOD
-    for (let i = this.foods.length - 1; i >= 0; i--) {
-      const food = this.foods[i]
+restartGame() {
+    console.log("Restart function called!")
 
-      food.move()
+    clearInterval(this.foodInterval)
+    clearInterval(this.obstaclesInterval)
+    clearInterval(this.animationInterval)
 
-      // Remove food outside screen
-      if (food.x + food.width < 0) {
-        food.element.remove()
-        this.foods.splice(i, 1)
-        continue
-      }
+    // Remove old food and obstacles
+    this.foods.forEach(food => food.element.remove())
+    this.obstacles.forEach(obstacle => obstacle.element.remove())
 
-      // Player collects food
-      if (this.checkCollision(this.player, food)) {
-        this.score += 1
-
-        if (this.scoreContainer) {
-          this.scoreContainer.textContent = this.score
-        }
-
-        food.element.remove()
-        this.foods.splice(i, 1)
-      }
+    // Remove old player and ground
+    if (this.player?.element) {
+        this.player.element.remove()
     }
 
-    // OBSTACLES
-    for (let i = this.obstacles.length - 1; i >= 0; i--) {
-      const obstacle = this.obstacles[i]
+    if (this.ground?.element) {
+        this.ground.element.remove()
+    }
 
-      obstacle.move()
+    // Reset arrays
+    this.foods = []
+    this.obstacles = []
 
-      // Remove obstacle outside screen
-      if (obstacle.x + obstacle.width < 0) {
-        obstacle.element.remove()
-        this.obstacles.splice(i, 1)
-        continue
-      }
+    // Reset game values
+    this.lives = 10
+    this.score = 0
+    this.isGameOver = false
 
-      // Player hits obstacle
-      if (this.checkCollision(this.player, obstacle)) {
-        const now = Date.now()
+    // Start game again
+    this.startGame()
+}
 
-        // Prevent losing multiple lives from one collision
-        if (now - this.lastHitTime >= 1000) {
-          this.lives -= 1
-          this.lastHitTime = now
 
-          this.lifeContainer.textContent = this.lives
+animate() {
+  if (this.isGameOver) return
 
-          obstacle.element.remove()
-          this.obstacles.splice(i, 1)
+  this.player.update()
+  this.ground.move()
 
-          if (this.lives <= 0) {
-            this.gameOver()
-            return
-          }
-        }
+  // FOOD
+  for (let i = this.foods.length - 1; i >= 0; i--) {
+    const food = this.foods[i]
+
+    food.move()
+
+    if (food.x + food.width < 0) {
+      food.element.remove()
+      this.foods.splice(i, 1)
+      continue
+    }
+
+    if (this.checkCollision(this.player, food)) {
+      this.score += 1
+      this.scoreContainer.textContent = `Score: ${this.score}`
+
+      food.element.remove()
+      this.foods.splice(i, 1)
+    }
+  }
+
+  // OBSTACLES
+  for (let i = this.obstacles.length - 1; i >= 0; i--) {
+    const obstacle = this.obstacles[i]
+
+    obstacle.move()
+
+    if (obstacle.x + obstacle.width < 0) {
+      obstacle.element.remove()
+      this.obstacles.splice(i, 1)
+      continue
+    }
+
+    if (this.checkCollision(this.player, obstacle)) {
+      this.lives -= 1
+      this.lifeContainer.textContent = `Life: ${this.lives}`
+
+      obstacle.element.remove()
+      this.obstacles.splice(i, 1)
+
+      if (this.lives <= 0) {
+        this.gameOver()
+        return
       }
     }
   }
+}
 
   spawnFood() {
     const foodTypes = [
@@ -136,16 +156,29 @@ class Game {
     )
 
     const randomFood = foodTypes[randomIndex]
-
     const newFood = new Food(randomFood)
 
     this.foods.push(newFood)
   }
 
   spawnObstacle() {
-    const newObstacle = new Obstacle()
-    this.obstacles.push(newObstacle)
-  }
+  const obstacleTypes = [
+    "predator-1.png",
+    "predator-2.png",
+    "predator-3.png",
+    "predator-4.png"
+  ]
+
+  const randomIndex = Math.floor(
+    Math.random() * obstacleTypes.length
+  )
+
+  const randomType = obstacleTypes[randomIndex]
+
+  const obstacle = new Obstacle(randomType)
+
+  this.obstacles.push(obstacle)
+}
 
   checkCollision(player, object) {
     return (
