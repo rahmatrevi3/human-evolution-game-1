@@ -3,7 +3,7 @@ class Ground {
   constructor() {
     this.gameScreen = document.querySelector(".game-screen")
 
-    this.height = 80
+    this.height = 140
     this.speed = 5
     this.position = 0
 

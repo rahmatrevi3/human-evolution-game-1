@@ -1,6 +1,6 @@
 
 class Player {
-    constructor(ground) {
+    constructor() {
         this.gameScreen = document.querySelector(".game-screen")
         this.element = document.createElement("div")
 
@@ -12,9 +12,11 @@ class Player {
         this.velocityY = 0
         this.isJumping = false
 
-        this.groundHeight = ground.height
+        this.groundHeight = 80
 
-        this.y = this.gameScreen.clientHeight - this.height - ground.height
+        this.y = this.gameScreen.clientHeight
+         - this.height
+         - this.groundHeight
 
         this.image = "./assets/australopithecus.png"
 
@@ -26,14 +28,11 @@ class Player {
 
         this.element.style.backgroundImage = `url("${this.image}")`
         this.element.style.backgroundPosition = "center"
-        this.element.style.backgroundSize = "cover"
+        this.element.style.backgroundSize = "contain"
         this.element.style.backgroundRepeat = "no-repeat"
 
         this.gameScreen.appendChild(this.element)
 
-        console.log("PLAYER CREATED")
-        console.log("Ground height:", ground.height)
-        console.log("Player element:", this.element)
     }
 
     jump() {
@@ -59,5 +58,10 @@ class Player {
             this.element.style.top = `${this.y}px`
         }
     }
+
+    evolve(newImage) {
+    this.image = `./assets/${newImage}`
+    this.element.style.backgroundImage = `url("${this.image}")`
+  }
 }
 

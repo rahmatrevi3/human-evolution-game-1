@@ -58,7 +58,7 @@ body {
 
 .game-screen {
     display: none;
-    background-image: url("./assets/game-screen.png");
+    background-image: url("./assets/main-background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

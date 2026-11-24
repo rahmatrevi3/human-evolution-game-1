@@ -20,6 +20,7 @@ class Game {
     this.lives = 10
     this.score = 0
     this.isGameOver = false
+    this.evolutionStage = 0
     
   }
 
@@ -60,29 +61,23 @@ restartGame() {
     clearInterval(this.obstaclesInterval)
     clearInterval(this.animationInterval)
 
-    // Remove old food and obstacles
     this.foods.forEach(food => food.element.remove())
     this.obstacles.forEach(obstacle => obstacle.element.remove())
 
-    // Remove old player and ground
-    if (this.player?.element) {
-        this.player.element.remove()
-    }
-
-    if (this.ground?.element) {
-        this.ground.element.remove()
-    }
-
-    // Reset arrays
+    
+    this.player.element.remove()
+    this.ground.element.remove()
+    
     this.foods = []
     this.obstacles = []
 
-    // Reset game values
+    
     this.lives = 10
     this.score = 0
     this.isGameOver = false
+    this.evolutionStage = 0
 
-    // Start game again
+    
     this.startGame()
 }
 
@@ -91,6 +86,8 @@ animate() {
   if (this.isGameOver) return
 
   this.player.update()
+
+  // GROUND
   this.ground.move()
 
   // FOOD
@@ -108,6 +105,8 @@ animate() {
     if (this.checkCollision(this.player, food)) {
       this.score += 1
       this.scoreContainer.textContent = `Score: ${this.score}`
+
+      this.checkEvolution()
 
       food.element.remove()
       this.foods.splice(i, 1)
@@ -188,6 +187,27 @@ animate() {
       player.y + player.height > object.y
     )
   }
+
+  
+checkEvolution() {
+  if (this.score >= 40 && this.evolutionStage < 4) {
+    this.player.evolve("homo-sapiens.png")
+    this.evolutionStage = 4
+
+  } else if (this.score >= 30 && this.evolutionStage < 3) {
+    this.player.evolve("neanderthalensis.png")
+    this.evolutionStage = 3
+
+  } else if (this.score >= 20 && this.evolutionStage < 2) {
+    this.player.evolve("homo-erectus.png")
+    this.evolutionStage = 2
+
+  } else if (this.score >= 10 && this.evolutionStage < 1) {
+    this.player.evolve("homo-habilis.png")
+    this.evolutionStage = 1
+  }
+}
+
 
   gameOver() {
     this.isGameOver = true
