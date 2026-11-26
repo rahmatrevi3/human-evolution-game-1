@@ -34,25 +34,33 @@ body {
 }
 
 .start-screen h1 {
-    font-family: Arial, sans-serif;
-    font-size: 70px;
-    color: black;
+    font-family: "Bangers", cursive;
+    font-size: 50px;
+    color: brown;
+    letter-spacing: 4px;
 }
 
 .start-screen p {
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    color: black;
+    font-family: "Nunito", sans-serif;
+    font-size: 22px;
+    color: brown;
 }
 
 .start-btn {
-    width: auto;
-    height: auto;
-    padding: 10px 25px;
-    font-size: 18px;
+    font-family: "Bangers", cursive;
+    font-size: 32px;
+    letter-spacing: 2px;
+    background-color: #e9a23b;
+    color: white;
+    border: 3px solid #75451e;
+    border-radius: 12px;
+    padding: 15px 40px;
     cursor: pointer;
-    border-radius: 8px;
-    border: 1px solid gray;
+}
+
+.start-btn:hover {
+    background-color: #c77d25;
+    transform: scale(1.05);
 }
 
 

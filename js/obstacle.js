@@ -3,8 +3,8 @@ class Obstacle {
         this.gameScreen = document.querySelector(".game-screen")
         this.element = document.createElement("div")
 
-        this.width = 70
-        this.height = 70
+        this.width = 80
+        this.height = 80
 
         this.x = this.gameScreen.clientWidth
         this.y = this.gameScreen.clientHeight - 80 - this.height
@@ -27,7 +27,7 @@ class Obstacle {
 
     }
     move() {
-        this.x -= 5
+        this.x -= 50
         this.element.style.left = `${this.x}px`
     }
 }
