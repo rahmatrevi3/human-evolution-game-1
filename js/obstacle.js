@@ -27,7 +27,7 @@ class Obstacle {
 
     }
     move() {
-        this.x -= 50
+        this.x -= 7
         this.element.style.left = `${this.x}px`
     }
 }
