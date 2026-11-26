@@ -148,6 +148,7 @@ animate() {
       "food-nuts.png",
       "food-tubers.png",
       "food-roots.png"
+      "wolly-game.png"
     ]
 
     const randomIndex = Math.floor(
