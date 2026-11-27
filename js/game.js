@@ -39,12 +39,12 @@ class Game {
     
     this.foodInterval = setInterval(() => {
       this.spawnFood()
-    }, 3000)
+    }, 1000)
 
     
     this.obstaclesInterval = setInterval(() => {
       this.spawnObstacle()
-    }, 4000)
+    }, 1500)
 
     
     this.animationInterval = setInterval(() => {
@@ -192,11 +192,11 @@ animate() {
 
   
 checkEvolution() {
-  if (this.score >= 30 && this.evolutionStage < 4) {
+  if (this.score >= 50 && this.evolutionStage < 4) {
     this.player.evolve("homo-sapiens.png")
     this.evolutionStage = 3
 
-  } else if (this.score >= 20 && this.evolutionStage < 2) {
+  } else if (this.score >= 25 && this.evolutionStage < 2) {
     this.player.evolve("homo-erectus.png")
     this.evolutionStage = 2
 
