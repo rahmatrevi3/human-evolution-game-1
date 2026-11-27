@@ -48,21 +48,27 @@ body {
 
 .start-btn {
     font-family: "Bangers", cursive;
-    font-size: 32px;
+    font-size: 26px;
     letter-spacing: 2px;
-    background-color: #e9a23b;
-    color: white;
-    border: 3px solid #75451e;
-    border-radius: 12px;
-    padding: 15px 40px;
+
+    background: linear-gradient(
+        to bottom,
+        #b8793e,
+        #75451e
+    );
+
+    color: #fff3d5;
+
+    border: 3px solid #542f18;
+    border-radius: 14px;
+
+    padding: 10px 32px;
+
+    box-shadow: 0 5px 0 #422313;
+
     cursor: pointer;
+    transition: all 0.2s ease;
 }
-
-.start-btn:hover {
-    background-color: #c77d25;
-    transform: scale(1.05);
-}
-
 
 .game-screen {
     display: none;
