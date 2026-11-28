@@ -34,7 +34,7 @@ class Game {
     
 
     this.ground = new Ground()
-    this.player = new Player(this.ground)
+    this.player = new Player()
 
     
     this.foodInterval = setInterval(() => {
@@ -44,7 +44,7 @@ class Game {
     
     this.obstaclesInterval = setInterval(() => {
       this.spawnObstacle()
-    }, 1500)
+    }, 2000)
 
     
     this.animationInterval = setInterval(() => {

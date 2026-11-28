@@ -4,8 +4,8 @@ class Food {
     this.gameScreen = document.querySelector(".game-screen")
     this.element = document.createElement("div")
 
-    this.width = 50
-    this.height = 50
+    this.width = 60
+    this.height = 60
 
     this.x = this.gameScreen.clientWidth
     this.y = this.gameScreen.clientHeight - 80 - this.height
